@@ -1,6 +1,7 @@
 import type { Route } from "./+types/home";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { DashboardPage } from "~/pages/dashboard";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -9,7 +10,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function DashboardPage() {
+export default function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function DashboardPage() {
     <main className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
       <p>ברוך הבא לדשבורד!</p>
+      <DashboardPage />
     </main>
   );
 }
