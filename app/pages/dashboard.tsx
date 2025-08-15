@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchVatsimData } from "../api/vatsimApi";
 import type { Controller, Pilot } from "../api/vatsimApi";
+import { useNavigate } from "react-router-dom";
 
 type FilterType = "all" | "pilot" | "controller";
 type Item = (Pilot | Controller) & { _type: "pilot" | "controller" };
@@ -12,6 +13,7 @@ export function DashboardPage() {
   const [filterType, setFilterType] = useState<FilterType>("all");
   const [page, setPage] = useState(1);
   const pageSize = 12;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const password = localStorage.getItem("password");
@@ -64,8 +66,21 @@ export function DashboardPage() {
     // פעולה ריקה כרגע
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("password");
+    navigate("/");
+  };
+
   return (
     <main className="flex flex-col items-center min-h-screen p-4">
+      <div className="w-full flex justify-end mb-4">
+        <button
+          className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
+          onClick={handleLogout}
+        >
+          התנתק
+        </button>
+      </div>
       <h1 className="text-3xl font-bold mb-4">VATSIM Online</h1>
       <div className="mb-4 flex flex-col sm:flex-row gap-2 w-full max-w-6xl">
         <input
